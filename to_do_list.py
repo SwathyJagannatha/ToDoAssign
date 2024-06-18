@@ -23,8 +23,19 @@ class InvalidDateException(Exception):
 todo_list=[]
 special_task=[]
 
-# sort items based on due date or priority
+# sort items based on priority
 
+def sort_items_priority(special_task):
+
+    priority_list={"Urgent":1,"High":2,"Medium":3,"Low":4}
+
+    sorted_list = sorted(special_task,key = lambda x : priority_list[x['user_priority']])
+
+    print("Sorted list contents:")
+    print(sorted_list)
+   
+    pass
+    
 def add_task(todo_list):
     user_task = input("Enter the task you would like to append to the to-do list\n")
 
@@ -105,7 +116,7 @@ def mark_complete(special_task):
     print("Please enter an existing Task!!")
     pass 
                     
-def delete_sp_task():
+def delete_sp_task(special_task):
     print(special_task)
     user_input = input("Enter the special task, which you want to delete\n").lower()
 
@@ -202,7 +213,8 @@ def main(todo_list):
         3. Mark a task as complete
         4. Delete a task
         5. Add Special Task ,Display Special Tasks, Mark that task as Completed
-        6. Quit
+        6. Sort Task by Priority
+        7. Quit
 
     """)
 
@@ -236,14 +248,18 @@ def main(todo_list):
                     user_val =input("Do you want to view the special tasks?\n").lower()
                     if user_val == "yes":
                         display_special_task(special_task)
-
+                        
             elif choice == "6":
+                sort_items_priority(special_task)
+                display_special_task(special_task)
+
+            elif choice == "7":
                     print("You have chosen to quit!!Exiting.....")
                     break
             else: 
                 raise InvalidOptionException
             
         except InvalidOptionException:
-            print("Please choose a valid option between 1 to 6")
+            print("Please choose a valid option between 1 to 7")
 
 main(todo_list)
