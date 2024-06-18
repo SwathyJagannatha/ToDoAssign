@@ -23,18 +23,18 @@ class InvalidDateException(Exception):
 todo_list=[]
 special_task=[]
 
-# sort items based on priority
+# sort items based on priority -- requires use of dictionary
 
-def sort_items_priority(special_task):
+# def sort_items_priority(special_task):
 
-    priority_list={"Urgent":1,"High":2,"Medium":3,"Low":4}
+#     priority_list={"Urgent":1,"High":2,"Medium":3,"Low":4}
 
-    sorted_list = sorted(special_task,key = lambda x : priority_list[x['user_priority']])
+#     sorted_list = sorted(special_task,key = lambda x : priority_list[x['user_priority']])
 
-    print("Sorted list contents:")
-    print(sorted_list)
+#     print("Sorted list contents:")
+#     print(sorted_list)
    
-    pass
+#     pass
     
 def add_task(todo_list):
     user_task = input("Enter the task you would like to append to the to-do list\n")
@@ -213,8 +213,7 @@ def main(todo_list):
         3. Mark a task as complete
         4. Delete a task
         5. Add Special Task ,Display Special Tasks, Mark that task as Completed
-        6. Sort Task by Priority
-        7. Quit
+        6. Quit
 
     """)
 
@@ -249,17 +248,99 @@ def main(todo_list):
                     if user_val == "yes":
                         display_special_task(special_task)
                         
-            elif choice == "6":
-                sort_items_priority(special_task)
-                display_special_task(special_task)
+            # elif choice == "6":
+            #     sort_items_priority(special_task)
+            #     display_special_task(special_task)
 
-            elif choice == "7":
+            elif choice == "6":
                     print("You have chosen to quit!!Exiting.....")
                     break
             else: 
                 raise InvalidOptionException
             
         except InvalidOptionException:
-            print("Please choose a valid option between 1 to 7")
+            print("Please choose a valid option between 1 to 6")
 
 main(todo_list)
+
+
+############ dictionary implementation ###################
+
+# def add_special_task(special_task):
+#     user_task = input("Enter the task you would like to add to special Task list\n")
+
+#     try:
+#         user_due_date = input("Enter the Task Due Date(YYYY-MM-DD)\n")
+#         user_priority = input("Enter the Task Priority (Low , Medium , High , Urgent!)\n")
+
+#         user_date = date.fromisoformat(user_due_date)
+    
+#         if user_date < date.today():
+#            raise InvalidDateException
+#         else:
+#             #task_item = user_task +" : " + str(user_date) +" : " + user_priority
+#             task_item = {'task': user_task, 'due_date': str(user_date), 'priority': user_priority.strip()}
+
+#             if task_item in special_task:
+#                 print("Duplicate Entry! Task already exists in your special list!!")
+#             else:
+#                 special_task.append(task_item)
+#                 print("List after adding the item:")
+#                 print(colored(special_task ,on_color="on_light_magenta"))
+
+#     except ValueError:
+#         print("Invalid date format. Please enter the date in YYYY-MM-DD format.")
+
+#     except InvalidDateException:
+#             print("Please enter date in the future while setting Due date!")
+   
+#     pass
+
+# def display_special_task(special_task):  
+#     for task in special_task:
+#         #task = indi_task.split(":")
+#         print("Displaying special task details:")
+#         print(f"""...............................................................................................................................
+#           {Fore.GREEN}Task -{Fore.YELLOW}{task['task']} : {Fore.GREEN}Due Date - {Fore.YELLOW}{task['due_date']} : {Fore.GREEN}Priority - {Fore.YELLOW}{task['priority']} 
+#           """)
+#         print(Style.RESET_ALL)
+
+#     user_ip = input("Do you want to mark as special task complete?\n").lower()
+#     if user_ip == "yes":
+#          mark_complete(special_task)
+
+#          user_input = input("Do you want to delete any special task?\n").lower()
+#          if user_input == "yes":
+#             delete_sp_task(special_task)
+#          else:
+#             pass
+#     pass 
+
+# def mark_complete(special_task):
+#     print(special_task)
+#     user_input = input("Enter the special task, which has been completed\n").lower()
+#     for task in special_task:
+#         task_name = task['task']
+#         print(task_name)
+#         if task_name.lower().strip() == user_input.lower().strip():
+#                 task['task'] +='-XX'
+#                 print(special_task)
+#         else:
+#             print("Task names arent matching!")
+
+#     display_special_task(special_task)
+#     pass 
+
+# sort items based on due date or priority
+# def sort_items_priority(special_task):
+
+#     priority_list={"Urgent":1,"High":2,"Medium":3,"Low":4}
+
+#     sorted_list = sorted(special_task,key = lambda x : priority_list[x['priority']])
+
+#     print("Sorted list contents:")
+#     #print(sorted_list)
+#     for task in sorted_list:
+#         print(f"{Fore.LIGHTRED_EX}Task - {Fore.BLUE}{task['task']} : {Fore.LIGHTRED_EX}Due Date - {Fore.BLUE}{task['due_date']} : {Fore.LIGHTRED_EX}Priority - {Fore.BLUE}{task['priority']}")
+#     pass
+
